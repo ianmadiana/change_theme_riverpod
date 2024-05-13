@@ -1,6 +1,7 @@
 import 'package:change_theme_riverpod/theme.dart';
 import 'package:change_theme_riverpod/theme_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
@@ -14,6 +15,7 @@ class MyApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(gantiTemaProvider);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       theme: theme,
       home: const HomePage(),
     );
@@ -26,12 +28,14 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = ref.watch(gantiTemaProvider);
+    // isDarkMode = false;
     bool isDarkMode = theme == darkTheme;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Change Theme'),
-        backgroundColor: Colors.transparent,
+        systemOverlayStyle:
+            isDarkMode ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark,
       ),
       body: Center(
         child: Column(
